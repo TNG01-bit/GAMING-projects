@@ -5,17 +5,23 @@ internal class rb { };
 
 public class player : MonoBehaviour
 {
+    PlayerInput input;
     InputAction move, jump;
     float lastJump = -1f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    
+    void Start()
+    {
+        input = GetComponent<PlayerInput>();
+        move = GetComponent<InputAction>();
+        jump = GetComponent<InputAction>();
+    }
     void Awake()
     {
         var actions = GetComponent<PlayerInput>().actions;
         move = actions["Move"];
         jump = actions["Jump"];
-        jump.performed +=_=> TryJump();
+        jump.performed += _ => TryJump();
     }
 
     // Update is called once per frame
@@ -26,10 +32,10 @@ public class player : MonoBehaviour
         //rb.AddForce(Vector3.up * jumpForce);
     }
 
-     void Update()
+    void Update()
     {
-        const float speed = 1f;      
+        const float speed = 1f;
         Vector2 dir = move.ReadValue<Vector2>();
-            transform.Translate(dir *speed * Time.deltaTime);
+        transform.Translate(dir * speed * Time.deltaTime);
     }
 };

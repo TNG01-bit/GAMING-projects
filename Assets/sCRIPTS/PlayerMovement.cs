@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
+    public int PlayerKeys = 0;
+    
     public Camera playerCamera;
     public float walkSpeed = 20f;
     public float runSpeed = 40f;
@@ -20,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private float rotationX = 0;
     private CharacterController characterController;
 
+    public static PlayerMovement instance;
+
     private bool canMove = true;
 
     void Start()
@@ -27,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        instance = this;
     }
 
     void Update()
